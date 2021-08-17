@@ -1,8 +1,8 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\Traits;
+namespace Artificertech\LaravelEmbeddedVideos\Traits;
 
-use Nwidart\LaravelVideoable\Models\Video;
+use Artificertech\LaravelEmbeddedVideos\Models\Video;
 
 trait HasVideos
 {

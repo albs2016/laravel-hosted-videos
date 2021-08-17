@@ -1,9 +1,9 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\Models;
+namespace Artificertech\LaravelEmbeddedVideos\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Nwidart\LaravelVideoable\Exceptions\VideoPresenterNotFound;
+use Artificertech\LaravelEmbeddedVideos\Exceptions\VideoPresenterNotFound;
 
 class Video extends Model
 {

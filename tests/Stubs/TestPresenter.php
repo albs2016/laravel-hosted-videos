@@ -1,8 +1,8 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\Tests\Stubs;
+namespace Artificertech\LaravelEmbeddedVideos\Tests\Stubs;
 
-use Nwidart\LaravelVideoable\Sources\BaseVideoSource;
+use Artificertech\LaravelEmbeddedVideos\Sources\BaseVideoSource;
 
 class TestPresenter extends BaseVideoSource
 {

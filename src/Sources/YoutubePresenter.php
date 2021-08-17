@@ -1,6 +1,6 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\Sources;
+namespace Artificertech\LaravelEmbeddedVideos\Sources;
 
 final class YoutubePresenter extends BaseVideoSource
 {

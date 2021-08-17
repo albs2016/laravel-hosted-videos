@@ -1,11 +1,11 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\tests;
+namespace Artificertech\LaravelEmbeddedVideos\tests;
 
 use Illuminate\Database\Schema\Blueprint;
-use Nwidart\LaravelVideoable\LaravelVideoableServiceProvider;
-use Nwidart\LaravelVideoable\Models\Video;
-use Nwidart\LaravelVideoable\tests\Stubs\Product;
+use Artificertech\LaravelEmbeddedVideos\LaravelEmbeddedVideosServiceProvider;
+use Artificertech\LaravelEmbeddedVideos\Models\Video;
+use Artificertech\LaravelEmbeddedVideos\tests\Stubs\Product;
 use Orchestra\Testbench\TestCase;
 
 abstract class BaseTestCase extends TestCase
@@ -19,7 +19,7 @@ abstract class BaseTestCase extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            LaravelVideoableServiceProvider::class,
+            LaravelEmbeddedVideosServiceProvider::class,
         ];
     }
     /**

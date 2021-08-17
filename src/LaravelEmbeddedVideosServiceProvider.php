@@ -1,15 +1,16 @@
 <?php
 
-namespace Nwidart\LaravelVideoable;
+namespace Artificertech\LaravelEmbeddedVideos;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelVideoableServiceProvider extends ServiceProvider
+class LaravelEmbeddedVideosServiceProvider extends ServiceProvider
 {
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/laravel-videoable.php', 'laravel-videoable'
+            __DIR__ . '/../config/laravel-videoable.php',
+            'laravel-videoable'
         );
     }
 
@@ -18,7 +19,7 @@ class LaravelVideoableServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'laravel-videoable');
 
         if ($this->app->runningInConsole()) {
-            if (! class_exists('CreateVideosTable')) {
+            if (!class_exists('CreateVideosTable')) {
                 $timestamp = date('Y_m_d_His', time());
                 $this->publishes([
                     __DIR__ . '/../database/migrations/create_video_table.php.stub' => $this->app->databasePath() . '/migrations/' . $timestamp . '_create_videos_table.php',
@@ -26,7 +27,7 @@ class LaravelVideoableServiceProvider extends ServiceProvider
             }
 
             $this->publishes([
-                __DIR__.'/../config/laravel-videoable.php' => config_path('laravel-videoable.php'),
+                __DIR__ . '/../config/laravel-videoable.php' => config_path('laravel-videoable.php'),
             ], 'config');
 
             $this->publishes([

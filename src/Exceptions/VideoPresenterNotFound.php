@@ -1,6 +1,6 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\Exceptions;
+namespace Artificertech\LaravelEmbeddedVideos\Exceptions;
 
 class VideoPresenterNotFound extends \Exception
 {

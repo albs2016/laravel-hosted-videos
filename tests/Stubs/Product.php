@@ -1,9 +1,9 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\tests\Stubs;
+namespace Artificertech\LaravelEmbeddedVideos\tests\Stubs;
 
 use Illuminate\Database\Eloquent\Model;
-use Nwidart\LaravelVideoable\Traits\HasVideos;
+use Artificertech\LaravelEmbeddedVideos\Traits\HasVideos;
 
 class Product extends Model
 {

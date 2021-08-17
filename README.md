@@ -51,14 +51,14 @@ Next add the following service provider in `config/app.php`.
 
 ``` php
 'providers' => [
-  Nwidart\LaravelVideoable\LaravelVideoableServiceProvider::class,
+  Artificertech\LaravelEmbeddedVideos\LaravelEmbeddedVideosServiceProvider::class,
 ],
 ```
 
 Publish the package's migrations files by running :
 
 ```bash
-php artisan vendor:publish --provider="Nwidart\LaravelVideoable\LaravelVideoableServiceProvider" --tag=migrations
+php artisan vendor:publish --provider="Artificertech\LaravelEmbeddedVideos\LaravelEmbeddedVideosServiceProvider" --tag=migrations
 ```
 
 After the migrations have been published you can create the `laravel_videoables` table by running the migrations
@@ -70,13 +70,13 @@ php artisan migrate
 (optional) Publish the package's configuration file by running :
 
 ``` bash
-php artisan vendor:publish --provider="Nwidart\LaravelVideoable\LaravelVideoableServiceProvider" --tag=config
+php artisan vendor:publish --provider="Artificertech\LaravelEmbeddedVideos\LaravelEmbeddedVideosServiceProvider" --tag=config
 ```
 
 (optional) Publish the package's view files by running :
 
 ``` bash
-php artisan vendor:publish --provider="Nwidart\LaravelVideoable\LaravelVideoableServiceProvider" --tag=views
+php artisan vendor:publish --provider="Artificertech\LaravelEmbeddedVideos\LaravelEmbeddedVideosServiceProvider" --tag=views
 ```
 
 

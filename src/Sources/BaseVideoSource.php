@@ -1,13 +1,13 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\Sources;
+namespace Artificertech\LaravelEmbeddedVideos\Sources;
 
-use Nwidart\LaravelVideoable\Models\Video;
+use Artificertech\LaravelEmbeddedVideos\Models\Video;
 
 abstract class BaseVideoSource
 {
     /**
-     * @var \Nwidart\LaravelVideoable\Models\Video
+     * @var \Artificertech\LaravelEmbeddedVideos\Models\Video
      */
     protected $entity;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Nwidart\LaravelVideoable\tests;
+namespace Artificertech\LaravelEmbeddedVideos\tests;
 
-use Nwidart\LaravelVideoable\Exceptions\VideoPresenterNotFound;
-use Nwidart\LaravelVideoable\Models\Video;
-use Nwidart\LaravelVideoable\tests\Stubs\Product;
-use Nwidart\LaravelVideoable\Tests\Stubs\TestPresenter;
+use Artificertech\LaravelEmbeddedVideos\Exceptions\VideoPresenterNotFound;
+use Artificertech\LaravelEmbeddedVideos\Models\Video;
+use Artificertech\LaravelEmbeddedVideos\tests\Stubs\Product;
+use Artificertech\LaravelEmbeddedVideos\Tests\Stubs\TestPresenter;
 
 class VideoTest extends BaseTestCase
 {
@@ -91,7 +91,8 @@ HTML;
     {
         include __DIR__ . '/Stubs/TestPresenter.php';
         $this->app['config']->set(
-            'laravel-videoable.sources.testsource', TestPresenter::class
+            'laravel-videoable.sources.testsource',
+            TestPresenter::class
         );
         $product = $this->createProductWithVideo(['source' => 'testsource']);
 

@@ -1,42 +1,41 @@
 {
-    "name": "nwidart/laravel-videoable",
+    "name": "artificertech/laravel-embedded-videos",
     "type": "library",
-    "description": "Attach videos to your models",
+    "description": "Attach third party videos to your models",
     "keywords": [
         "laravel",
-        "laravel-videoable",
+        "laravel-embedded-videos",
         "video",
         "youtube",
-        "vimeo"
+        "vimeo",
+        "embedded"
     ],
-    "homepage": "https://github.com/nwidart/laravel-videoable",
+    "homepage": "https://github.com/artificertech/laravel-embedded-videos",
     "license": "MIT",
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com",
-            "homepage": "https://nicolaswidart.com",
+            "name": "Cole Shirley",
+            "email": "cole.shirley@artificertech.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=7.0",
-        "laravel/framework": "5.7.*"
+        "php": ">=7.4|>=8.0",
+        "laravel/framework": "^5.7|^6|^7|^8"
     },
     "require-dev": {
-        "phpunit/phpunit" : "~7.0",
-        "squizlabs/php_codesniffer": "^2.3",
-        "orchestra/testbench": "3.7.*",
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpunit/phpunit": "^9.3",
         "friendsofphp/php-cs-fixer": "^2.13"
     },
     "autoload": {
         "psr-4": {
-            "Nwidart\\LaravelVideoable\\": "src"
+            "Artificertech\\LaravelEmbeddedVideos\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nwidart\\LaravelVideoable\\tests\\": "tests"
+            "Artificertech\\LaravelEmbeddedVideos\\tests\\": "tests"
         }
     },
     "scripts": {
@@ -49,7 +48,7 @@
         },
         "laravel": {
             "providers": [
-                "Nwidart\\LaravelVideoable\\LaravelVideoableServiceProvider"
+                "Artificertech\\LaravelEmbeddedVideos\\LaravelEmbeddedVideosServiceProvider"
             ]
         }
     },
