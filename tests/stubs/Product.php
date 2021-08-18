@@ -1,13 +1,13 @@
 <?php
 
-namespace Artificertech\LaravelEmbeddedVideos\tests\Stubs;
+namespace Artificertech\LaravelHostedVideos\Tests\Stubs;
 
 use Illuminate\Database\Eloquent\Model;
-use Artificertech\LaravelEmbeddedVideos\Traits\HasVideos;
+use Artificertech\LaravelHostedVideos\InteractsWithHostedVideos;
 
 class Product extends Model
 {
-    use HasVideos;
+    use InteractsWithHostedVideos;
 
     protected $fillable = ['product_name'];
     public $timestamps = false;
