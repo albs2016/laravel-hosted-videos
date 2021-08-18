@@ -2,9 +2,8 @@
 
 namespace Artificertech\LaravelHostedVideos\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Artificertech\LaravelHostedVideos\Exceptions\VideoSourceNotFound;
 use Artificertech\LaravelHostedVideos\Sources\Source;
+use Illuminate\Database\Eloquent\Model;
 
 class HostedVideo extends Model
 {
@@ -26,7 +25,7 @@ class HostedVideo extends Model
     }
 
     /**
-     * Return a view representing the embeded video
+     * Return a view representing the embeded video.
      */
     public function embed()
     {

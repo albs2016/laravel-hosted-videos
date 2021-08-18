@@ -2,10 +2,10 @@
 
 namespace Artificertech\LaravelEmbeddedVideos\tests;
 
-use Illuminate\Database\Schema\Blueprint;
 use Artificertech\LaravelEmbeddedVideos\LaravelEmbeddedVideosServiceProvider;
 use Artificertech\LaravelEmbeddedVideos\Models\Video;
 use Artificertech\LaravelEmbeddedVideos\tests\Stubs\Product;
+use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase;
 
 abstract class BaseTestCase extends TestCase
@@ -22,6 +22,7 @@ abstract class BaseTestCase extends TestCase
             LaravelEmbeddedVideosServiceProvider::class,
         ];
     }
+
     /**
      * Set up the environment.
      *
@@ -30,11 +31,11 @@ abstract class BaseTestCase extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', array(
+        $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
-        ));
+        ]);
     }
 
     /**

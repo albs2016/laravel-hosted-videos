@@ -2,8 +2,8 @@
 
 namespace Artificertech\LaravelHostedVideos\Tests\Stubs;
 
-use Illuminate\Database\Eloquent\Model;
 use Artificertech\LaravelHostedVideos\InteractsWithHostedVideos;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
