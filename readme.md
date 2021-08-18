@@ -3,7 +3,8 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
+[![StyleCI](https://github.styleci.io/repos/397690634/shield?branch=master)](https://github.styleci.io/repos/397690634?branch=master)
+[![Software License][ico-license]](LICENSE.md)
 
 Attach third party hosted videos (such as youtube or vimeo) to your models and render them in your laravel application.
 
