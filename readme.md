@@ -5,7 +5,9 @@
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+Attach third party hosted videos (such as youtube or vimeo) to your models and render them in your laravel application.
+
+Originaly forked from https://github.com/nWidart/laravel-videoable with inspiration from https://github.com/spatie/laravel-medialibrary. Take a look at [contributing.md](contributing.md) to see a to do list.
 
 ## Installation
 
