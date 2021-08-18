@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHostedVideosTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateHostedVideosTable extends Migration
      */
     public function up()
     {
-        Schema::create('hosted_videos', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            $table->morphs('model');
-            $table->string('collection_name')->default('default');
-            $table->string('source');
-            $table->string('video_id');
-            $table->json('custom_properties')->default('{}');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateHostedVideosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('hosted_videos');
+        Schema::drop('products');
     }
 }

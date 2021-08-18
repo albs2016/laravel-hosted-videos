@@ -1,31 +1,34 @@
 language: php
 
 php:
-  - 7.1
-  - 7.2
+    - 7.3
+    - 7.4
+    - 8.0
 
 env:
-  global:
-    - coverage=no
+    global:
+        - coverage=no
 
 matrix:
-  include:
-    - php: 7.1
-      env: coverage=yes
-    - php: 7.2
-      env: coverage=no
+    include:
+        - php: 7.3
+          env: coverage=yes
+        - php: 7.4
+          env: coverage=yes
+        - php: 8.0
+          env: coverage=yes
 
 cache:
-  directories:
-    - $HOME/.composer/cache
+    directories:
+        - $HOME/.composer/cache
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer update --no-interaction --prefer-dist
+    - travis_retry composer self-update
+    - travis_retry composer update --no-interaction --prefer-dist
 
 script:
-  - phpunit --coverage-text --coverage-clover=coverage.clover
+    - phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - if [[ $coverage = 'yes' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - if [[ $coverage = 'yes' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi

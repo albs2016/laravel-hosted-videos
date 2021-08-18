@@ -9,6 +9,5 @@ class Product extends Model
 {
     use InteractsWithHostedVideos;
 
-    protected $fillable = ['product_name'];
-    public $timestamps = false;
+    protected $fillable = ['name'];
 }
