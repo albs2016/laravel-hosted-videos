@@ -1,58 +1,43 @@
 {
-    "name": "artificertech/laravel-embedded-videos",
-    "type": "library",
-    "description": "Attach third party videos to your models",
-    "keywords": [
-        "laravel",
-        "laravel-embedded-videos",
-        "video",
-        "youtube",
-        "vimeo",
-        "embedded"
-    ],
-    "homepage": "https://github.com/artificertech/laravel-embedded-videos",
+    "name": "artificertech/laravel-hosted-videos",
+    "description": "A package for utilizing third party hosted videos in laravel",
     "license": "MIT",
     "authors": [
         {
             "name": "Cole Shirley",
-            "email": "cole.shirley@artificertech.com",
-            "role": "Developer"
+            "email": "cole.shirley@artificertech.com"
         }
     ],
+    "homepage": "https://github.com/artificertech/laravel-hosted-videos",
+    "keywords": [
+        "Laravel",
+        "LaravelHostedVideos"
+    ],
     "require": {
-        "php": ">=7.4|>=8.0",
-        "laravel/framework": "^5.7|^6|^7|^8"
+        "illuminate/support": "~7|~8"
     },
     "require-dev": {
-        "orchestra/testbench": "^5.0|^6.0",
-        "phpunit/phpunit": "^9.3",
-        "friendsofphp/php-cs-fixer": "^2.13"
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~5|~6"
     },
     "autoload": {
         "psr-4": {
-            "Artificertech\\LaravelEmbeddedVideos\\": "src"
+            "Artificertech\\LaravelHostedVideos\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Artificertech\\LaravelEmbeddedVideos\\tests\\": "tests"
+            "Artificertech\\LaravelHostedVideos\\Tests\\": "tests"
         }
-    },
-    "scripts": {
-        "test": "phpunit",
-        "fix-style": "vendor/bin/php-cs-fixer fix . --config-file='.php_cs' --verbose"
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "3.0-dev"
-        },
         "laravel": {
             "providers": [
-                "Artificertech\\LaravelEmbeddedVideos\\LaravelEmbeddedVideosServiceProvider"
-            ]
+                "Artificertech\\LaravelHostedVideos\\LaravelHostedVideosServiceProvider"
+            ],
+            "aliases": {
+                "LaravelHostedVideos": "Artificertech\\LaravelHostedVideos\\Facades\\LaravelHostedVideos"
+            }
         }
-    },
-    "config": {
-        "sort-packages": true
     }
 }

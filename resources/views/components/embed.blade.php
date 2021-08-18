@@ -1,0 +1,3 @@
+@props(['video'])
+
+{{ $video->embed() }}

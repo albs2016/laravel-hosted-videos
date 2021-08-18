@@ -1,5 +1,3 @@
-<div class="video">
-    <iframe class="ytplayer" type="text/html" width="100%" height="100%"
-            src="https://www.youtube.com/embed/{{ $code }}?rel=0"
-            frameborder="0" allowfullscreen></iframe>
-</div>
+<iframe class="ytplayer" type="text/html" width="100%" height="100%"
+    src="https://www.youtube.com/embed/{{ $video->video_id }}?rel=0&modestbranding" frameborder="0"
+    webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
