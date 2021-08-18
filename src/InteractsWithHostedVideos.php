@@ -2,8 +2,6 @@
 
 namespace Artificertech\LaravelHostedVideos;
 
-use Artificertech\LaravelHostedVideos\Models\HostedVideo;
-use Artificertech\LaravelHostedVideos\Models\Video;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait InteractsWithHostedVideos

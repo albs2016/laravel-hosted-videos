@@ -4,7 +4,6 @@ namespace Artificertech\LaravelHostedVideos\Sources;
 
 use Artificertech\LaravelHostedVideos\Exceptions\VideoSourceNotFound;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Illuminate\Support\Facades\Log;
 
 class SourceCaster implements CastsAttributes
 {
@@ -23,7 +22,9 @@ class SourceCaster implements CastsAttributes
             return null;
         }
 
-        if (!class_exists($value)) throw new VideoSourceNotFound($value);
+        if (! class_exists($value)) {
+            throw new VideoSourceNotFound($value);
+        }
 
         $source = new $value($model);
 
@@ -45,10 +46,10 @@ class SourceCaster implements CastsAttributes
             return null;
         }
 
-        if (!is_subclass_of($value, Source::class)) {
+        if (! is_subclass_of($value, Source::class)) {
             $mapping = config('hosted-videos.sources');
 
-            if (!isset($mapping[$value])) {
+            if (! isset($mapping[$value])) {
                 throw new VideoSourceNotFound($value);
             }
 
