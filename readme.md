@@ -2,9 +2,8 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
+[![Build Status](https://travis-ci.com/artificertech/laravel-hosted-videos.svg?branch=master)](https://travis-ci.com/artificertech/laravel-hosted-videos)
 [![StyleCI](https://github.styleci.io/repos/397690634/shield?branch=master)](https://github.styleci.io/repos/397690634?branch=master)
-[![Software License][ico-license]](license.md)
 
 Attach third party hosted videos (such as youtube or vimeo) to your models and render them in your laravel application.
 
