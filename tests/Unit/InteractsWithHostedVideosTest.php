@@ -2,11 +2,9 @@
 
 namespace Artificertech\LaravelHostedVideos\Tests\Unit;
 
-use Artificertech\LaravelHostedVideos\Models\HostedVideo;
 use Artificertech\LaravelHostedVideos\Tests\Stubs\Product;
 use Artificertech\LaravelHostedVideos\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InteractsWithHostedVideosTest extends TestCase
 {
