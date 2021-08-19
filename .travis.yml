@@ -11,12 +11,8 @@ env:
 
 matrix:
     include:
-        - php: 7.3
-          env: coverage=yes
         - php: 7.4
-          env: coverage=yes
         - php: 8.0
-          env: coverage=yes
 
 cache:
     directories:
