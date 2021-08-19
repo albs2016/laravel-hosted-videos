@@ -14,10 +14,8 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'hosted-videos');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'hosted-videos');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         $this->registerBladeComponents();
 
@@ -60,18 +58,5 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => base_path('resources/views/vendor/hosted-videos'),
         ], 'hosted-videos.views');
-
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/hosted-videos'),
-        ], 'hosted-videos.views');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/hosted-videos'),
-        ], 'hosted-videos.views');*/
-
-        // Registering package commands.
-        // $this->commands([]);
     }
 }
