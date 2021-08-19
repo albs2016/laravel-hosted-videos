@@ -12,13 +12,13 @@ class InteractsWithHostedVideosTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_links_with_product()
+    public function it_has_relationship_with_videos()
     {
         /** @var Artificertech\LaravelHostedVideos\Tests\Stubs\Product */
         $product = Product::create(['name' => 'my cool product']);
 
         $product->hostedVideos()->updateOrCreate(['source' => 'youtube', 'video_id' => 'a8sdfyas09dyfh']);
 
-        $this->assertInstanceOf(HostedVideo::class, $product->hostedVideos()->first());
+        $this->assertInstanceOf(HostedVideo::class, $product->fresh()->hostedVideos()->first());
     }
 }
