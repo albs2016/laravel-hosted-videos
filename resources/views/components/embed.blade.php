@@ -1,3 +1,5 @@
-@props(['video'])
+@php
+$renderable = $video;
+@endphp
 
-{{ $video->embed() }}
+@include('laravel-renderable::components.renderable')

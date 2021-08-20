@@ -4,5 +4,8 @@ namespace Artificertech\LaravelHostedVideos\Sources;
 
 class VimeoSource extends Source
 {
-    protected $view = 'hosted-videos::sources.vimeo';
+    public function view(): string
+    {
+        return 'hosted-videos::sources.vimeo';
+    }
 }

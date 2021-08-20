@@ -14,7 +14,8 @@
         "LaravelHostedVideos"
     ],
     "require": {
-        "illuminate/support": "~7|~8"
+        "illuminate/support": "~7|~8",
+        "artificertech/laravel-renderable": "^1.0-beta"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",

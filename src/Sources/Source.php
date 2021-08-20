@@ -32,10 +32,7 @@ abstract class Source implements Castable
     }
 
     /**
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     * @return string
      */
-    public function getEmbedCode()
-    {
-        return view($this->view, ['video' => $this->model]);
-    }
+    abstract public function view(): string;
 }

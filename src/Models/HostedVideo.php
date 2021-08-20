@@ -3,9 +3,11 @@
 namespace Artificertech\LaravelHostedVideos\Models;
 
 use Artificertech\LaravelHostedVideos\Sources\Source;
+use Artificertech\LaravelRenderable\Renderable;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 
-class HostedVideo extends Model
+class HostedVideo extends Model implements Renderable
 {
     protected $table = 'hosted_videos';
     protected $fillable = ['source', 'video_id', 'custom_properties'];
@@ -25,10 +27,23 @@ class HostedVideo extends Model
     }
 
     /**
-     * Return a view representing the embeded video.
+     * Get the view that represents the renderable object.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
-    public function embed()
+    public function render(): View
     {
-        return $this->source->getEmbedCode();
+        return view($this->source->view());
+    }
+
+    /**
+     * Defines the variable name that this renderable class
+     * will have when used with the x-renderable blade component.
+     *
+     * @return string
+     */
+    public function variableName(): string
+    {
+        return 'video';
     }
 }

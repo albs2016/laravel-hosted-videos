@@ -14,7 +14,7 @@ Originaly forked from https://github.com/nWidart/laravel-videoable with inspirat
 Via Composer
 
 ``` bash
-$ composer require artificertech/laravel-hosted-videos
+composer require artificertech/laravel-hosted-videos
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ Please see the [changelog](changelog.md) for more information on what has change
 ## Testing
 
 ``` bash
-$ composer test
+composer test
 ```
 
 ## Contributing
