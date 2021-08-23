@@ -42,7 +42,7 @@ class HostedVideo extends Model implements Renderable
      *
      * @return string
      */
-    public function variableName(): string
+    public function renderableName(): string
     {
         return 'video';
     }

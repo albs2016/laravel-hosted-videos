@@ -15,7 +15,7 @@
     ],
     "require": {
         "illuminate/support": "~7|~8",
-        "artificertech/laravel-renderable": "^1.0-beta"
+        "artificertech/laravel-renderable": "^1.0-beta.3"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
