@@ -43,21 +43,23 @@ class LivewireHostedVideosCollection extends Component
 
     public function addHostedVideo()
     {
-        Log::debug(Source::parseURL($this->url));
-        [$source, $videoId] = Source::parseURL($this->url);
-        if (!empty($this->customProperties) && is_array($this->customProperties)) {
-            $newCustomeProperties = array_merge($this->customProperties, ['order' => $this->hosted_videos->count() + 1]);
-            $newVideo = new HostedVideo(['video_id' => $videoId, 'source' => $source,  'custom_properties' => json_encode($newCustomeProperties)]);
-            //   $this->model->hostedVideos()->save(new HostedVideo(['collection_name' => $this->collection, 'video_id' => '', 'source' => $source,  'custom_properties' => json_encode($newCustomeProperties)]));
-        } else {
-            // $this->model->hostedVideos()->save(new HostedVideo(['collection_name' => $this->collection, 'video_id' => '', 'source' => $source,  'custom_properties' => json_encode(['order' => $this->hosted_videos->count() + 1])]));
-            $newVideo = new HostedVideo(['video_id' => $videoId, 'source' => $source,  'custom_properties' => json_encode(['order' => $this->hosted_videos->count() + 1])]);
+        if ($this->url != null && Source::parseURL($this->url)) {
+            Log::debug(Source::parseURL($this->url));
+            [$source, $videoId] = Source::parseURL($this->url);
+            if (!empty($this->customProperties) && is_array($this->customProperties)) {
+                $newCustomeProperties = array_merge($this->customProperties, ['order' => $this->hosted_videos->count() + 1]);
+                $newVideo = new HostedVideo(['video_id' => $videoId, 'source' => $source,  'custom_properties' => json_encode($newCustomeProperties)]);
+                //   $this->model->hostedVideos()->save(new HostedVideo(['collection_name' => $this->collection, 'video_id' => '', 'source' => $source,  'custom_properties' => json_encode($newCustomeProperties)]));
+            } else {
+                // $this->model->hostedVideos()->save(new HostedVideo(['collection_name' => $this->collection, 'video_id' => '', 'source' => $source,  'custom_properties' => json_encode(['order' => $this->hosted_videos->count() + 1])]));
+                $newVideo = new HostedVideo(['video_id' => $videoId, 'source' => $source,  'custom_properties' => json_encode(['order' => $this->hosted_videos->count() + 1])]);
+            }
+            $newVideo->collection_name = $this->collection;
+            $this->model->hostedVideos()->save($newVideo);
+            $this->model->refresh();
+            $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection);
+            $this->open = false;
         }
-        $newVideo->collection_name = $this->collection;
-        $this->model->hostedVideos()->save($newVideo);
-        $this->model->refresh();
-        $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection);
-        $this->open = false;
     }
 
     public function deleteHostedVideo($video)

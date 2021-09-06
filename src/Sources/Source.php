@@ -83,6 +83,16 @@ abstract class Source implements Castable
     // https://vimeo.com/163330214#t=3s
     // https://player.vimeo.com/video/163330214?h=644b5eb31c
 
+
+    public static function getVideoURL($source, $videoId)
+    {
+        if ($source == 'Artificertech\LaravelHostedVideos\Sources\YoutubeSource') {
+            return "https://www.youtube.com/watch?v=" . $videoId;
+        } else if ($source == 'Artificertech\LaravelHostedVideos\Sources\VimeoSource') {
+            return "https://vimeo.com/" . $videoId;
+        }
+        return "Video link not found";
+    }
     /**
      * @return string
      */
