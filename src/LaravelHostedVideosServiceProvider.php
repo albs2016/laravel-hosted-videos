@@ -2,8 +2,11 @@
 
 namespace Artificertech\LaravelHostedVideos;
 
+use Artificertech\LaravelHostedVideos\Http\Components\HostedVideosCollectionComponent;
+use Artificertech\LaravelHostedVideos\Http\Livewire\LivewireHostedVideosCollection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class LaravelHostedVideosServiceProvider extends ServiceProvider
 {
@@ -18,6 +21,7 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->registerBladeComponents();
+        $this->registerLivewireComponents();
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -39,6 +43,19 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
     {
         Blade::component('hosted-videos::components.embed', 'video-embed');
 
+        Blade::component('hosted-videos-collection', HostedVideosCollectionComponent::class);
+        Blade::component('hosted-videos::components.list', 'list');
+        Blade::component('hosted-videos::components.item', 'item');
+        return $this;
+    }
+
+    public function registerLivewireComponents(): self
+    {
+        if (!class_exists(Livewire::class)) {
+            return $this;
+        }
+
+        Livewire::component('livewire-hosted-videos-collection', LivewireHostedVideosCollection::class);
         return $this;
     }
 
