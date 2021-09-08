@@ -20,6 +20,7 @@ class CreateHostedVideosTable extends Migration
             $table->string('collection_name')->default('default');
             $table->string('source');
             $table->string('video_id');
+            $table->unsignedInteger('order')->nullable();
             $table->json('custom_properties')->default('{}');
             $table->timestamps();
         });
