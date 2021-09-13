@@ -1,8 +1,5 @@
+{{-- @props(['model']) --}}
 <div>
-    <head>
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}"> '
-    </head>
-    <livewire:livewire-hosted-videos-collection :model="$model" />
+    <livewire:livewire-hosted-videos-collection :model="$model" :collection="$collection" :listView="$listView"
+        :itemView="$itemView" :propertiesView="$propertiesView" :inputView="$inputView" />
 </div>
-

@@ -6,17 +6,25 @@ use Illuminate\View\Component;
 
 class HostedVideosCollectionComponent extends Component
 {
-    public $hosted_videos;
     public $model;
-
+    public $collection;
+    public ?string $listView;
+    public ?string $itemView;
+    public ?string $propertiesView;
+    public ?string $inputView;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($model, $collection, ?string $itemView = null, ?string $listView = null, ?string $propertiesView = null, ?string $inputView = null)
     {
-        //
+        $this->model = $model;
+        $this->collection =  $collection;
+        $this->itemView = $itemView ?? 'item';
+        $this->inputView = $inputView ?? 'input';
+        $this->listView = $listView ?? 'hosted-videos::livewire.list';
+        $this->propertiesView = $propertiesView ?? null;
     }
 
     /**

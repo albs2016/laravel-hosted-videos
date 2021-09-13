@@ -14,29 +14,39 @@ class LivewireHostedVideosCollection extends Component
     public string $collection;
     public $customProperties;
     public $url;
+    public $listView;
+    public $itemView;
+    public $propertiesView;
+    public $inputView;
 
-    public function mount()
+    public $width;
+
+    public function mount(string $listView = null, string $itemView = null, string $propertiesView = null, string $inputView = null)
     {
+        $this->listView = $listView;
+        $this->itemView = $itemView;
+        $this->inputView = $inputView;
+        $this->propertiesView = $propertiesView;
         $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
         $this->url = "";
     }
     public function render()
     {
-        return view('hosted-videos::livewire.livewire-hosted-videos-collection');
+        return view($this->listView);
     }
 
     public function addHostedVideo()
     {
-        Log::debug($this->hosted_videos->last()->order);
         if (!empty($this->url) && Source::parseURL($this->url)) {
             [$source, $videoId] = Source::parseURL($this->url);
             $newVideo = new HostedVideo(['video_id' => $videoId, 'source' => $source,  'custom_properties' => json_encode($this->customProperties)]);
             $newVideo->collection_name = $this->collection;
-            $newVideo->order = $this->hosted_videos->last()->order ? $this->hosted_videos->last()->order + 1 : 1;
+            $newVideo->order = !empty($this->hosted_videos->last()->order) ? $this->hosted_videos->last()->order + 1 : 1;
             $this->model->hostedVideos()->save($newVideo);
             $this->model->refresh();
             $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
             $this->url = "";
+            $this->resetErrorBag();
         } else {
             $this->addError('url', 'Please enter a valid URL.');
         }
@@ -61,6 +71,7 @@ class LivewireHostedVideosCollection extends Component
 
     public function reorder($order)
     {
+        // Log::debug($order);
         $i =  count($order);
         foreach ($order as $video) {
             $updatedVideo = HostedVideo::find($video['value']);

@@ -44,8 +44,10 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
         Blade::component('hosted-videos::components.embed', 'video-embed');
 
         Blade::component('hosted-videos-collection', HostedVideosCollectionComponent::class);
-        Blade::component('hosted-videos::components.list', 'list');
-        Blade::component('hosted-videos::components.item', 'item');
+        Blade::component('hosted-videos::livewire.list', 'list');
+        Blade::component('hosted-videos::livewire.item', 'item');
+        Blade::component('hosted-videos::livewire.input', 'input');
+
         return $this;
     }
 
