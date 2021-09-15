@@ -8,6 +8,7 @@ class HostedVideosCollectionComponent extends Component
 {
     public $model;
     public $collection;
+    public $customProperties;
     public ?string $listView;
     public ?string $itemView;
     public ?string $propertiesView;
@@ -17,7 +18,7 @@ class HostedVideosCollectionComponent extends Component
      *
      * @return void
      */
-    public function __construct($model, $collection, ?string $itemView = null, ?string $listView = null, ?string $propertiesView = null, ?string $inputView = null)
+    public function __construct($model, $collection, ?string $itemView = null, ?string $listView = null, ?string $propertiesView = null, ?string $inputView = null, $customProperties = null)
     {
         $this->model = $model;
         $this->collection =  $collection;
@@ -25,6 +26,7 @@ class HostedVideosCollectionComponent extends Component
         $this->inputView = $inputView ?? 'input';
         $this->listView = $listView ?? 'hosted-videos::livewire.list';
         $this->propertiesView = $propertiesView ?? null;
+        $this->customProperties = $customProperties ?? null;
     }
 
     /**

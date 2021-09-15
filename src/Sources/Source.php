@@ -67,21 +67,7 @@ abstract class Source implements Castable
         }
 
         return false;
-        // return "[$source, $videoId]";
     }
-
-    // Possible YouTube URL's
-    // https://www.youtube.com/watch?v=pMbEj15bmJs
-    // https://youtu.be/pMbEj15bmJs
-    // https://www.youtube.com/embed/pMbEj15bmJs
-    // https://youtu.be/pMbEj15bmJs?t=15
-    // https://www.youtube.com/watch?v=pMbEj15bmJs&t=15s
-    // https://www.youtube.com/embed/pMbEj15bmJs?start=15
-
-    // Possible Vimeo URL'S
-    // https://vimeo.com/163330214
-    // https://vimeo.com/163330214#t=3s
-    // https://player.vimeo.com/video/163330214?h=644b5eb31c
 
 
     public static function getVideoURL($source, $videoId)

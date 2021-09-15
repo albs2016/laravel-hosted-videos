@@ -47,6 +47,7 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
         Blade::component('hosted-videos::livewire.list', 'list');
         Blade::component('hosted-videos::livewire.item', 'item');
         Blade::component('hosted-videos::livewire.input', 'input');
+        Blade::component('hosted-videos::livewire.custom_properties_input', 'custom_properties_input');
 
         return $this;
     }

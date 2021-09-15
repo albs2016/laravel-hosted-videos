@@ -6,7 +6,8 @@
 
             {{-- {{ $itemView }} --}}
             {{-- @include( $itemView ) --}}
-            <x-dynamic-component :component="$itemView" :video='$video' :propertiesView='$propertiesView' />
+            <x-dynamic-component :component="$itemView" :video='$video' :propertiesView='$propertiesView'
+                :url='$this->getVideoURL($video)' :index='$loop->index' />
             {{-- dynamic component here --}}
             {{-- <x-item :video='$video' /> --}}
 
