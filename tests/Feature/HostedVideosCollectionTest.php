@@ -2,16 +2,15 @@
 
 namespace Artificertech\LaravelHostedVideos\Tests\Feature;
 
-use App\Models\StoreItem;
+
 use Artificertech\LaravelHostedVideos\Http\Livewire\LivewireHostedVideosCollection;
 use Artificertech\LaravelHostedVideos\Models\HostedVideo;
 use Artificertech\LaravelHostedVideos\Tests\Stubs\Product;
 use Artificertech\LaravelHostedVideos\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
-use Illuminate\Support\Facades\Log;
+
 
 class HostedVideosCollectionTest extends TestCase
 {
@@ -69,7 +68,6 @@ class HostedVideosCollectionTest extends TestCase
         $this->assertEquals('4', $livewireTest->hosted_videos->first()->id);
     }
 
-
     public function test_updateHostedVideoCustomProperties_video()
     {
         $product = Product::create(['name' => 'my cool product']);
@@ -92,6 +90,19 @@ class HostedVideosCollectionTest extends TestCase
             '<x-item :video="$video" :propertiesView="$propertiesView" :url="$url" :index="$index"/>',
             ['video' =>  new HostedVideo(['source' =>  'Artificertech\LaravelHostedVideos\Sources\YoutubeSource', 'videoId' => '3AQ-cjOS9tY']), 'propertiesView' => null, 'url' => 'https://www.youtube.com/watch?v=3AQ-cjOS9tY', 'index' => 0]
         );
+
         $view->assertSee('https://www.youtube.com/watch?v=3AQ-cjOS9tY');
+    }
+
+    public function test_input_component_can_be_rendered()
+    {
+        $view = $this->withViewErrors([
+            'url' => ['Please provide a valid URL.']
+        ])->blade(
+            '<x-input  :url="$url"/>',
+            ['url' => 'https://www.youtube.com/watch?v=3AQ-cjOS9tY', 'index' => 0, 'errors' => ['url' => ['Please provide a valid URL.']]]
+        );
+
+        $view->assertSee('Please enter the URL of the video here.');
     }
 }
