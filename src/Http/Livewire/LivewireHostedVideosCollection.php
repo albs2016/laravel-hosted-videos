@@ -56,23 +56,22 @@ class LivewireHostedVideosCollection extends Component
 
     public function deleteHostedVideo($video)
     {
-        HostedVideo::find($video['id'])->delete();
+        if (!empty(HostedVideo::find($video['id'])))
+            HostedVideo::find($video['id'])->delete();
         $this->model->refresh();
         $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
     }
 
     public function updateHostedVideoCustomProperties($video, $customProperty, $value)
     {
-        Log::debug('lll');
         $updatedVideo = HostedVideo::find($video['id']);
         $customProperties = json_decode($updatedVideo->custom_properties);
-        Log::debug(json_encode($customProperties));
         if (is_object($customProperties))
             $customProperties->$customProperty = $value;
         else
             $customProperties[$customProperty] = $value;
-        Log::debug(json_encode($customProperties));
         $updatedVideo->custom_properties = json_encode($customProperties);
+
         $updatedVideo->save();
     }
 
