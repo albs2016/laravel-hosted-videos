@@ -3,7 +3,7 @@
 namespace Artificertech\LaravelHostedVideos;
 
 use Artificertech\LaravelHostedVideos\Http\Components\HostedVideosCollectionComponent;
-use Artificertech\LaravelHostedVideos\Http\Livewire\LivewireHostedVideosCollection;
+use Artificertech\LaravelHostedVideos\Http\Livewire\HostedVideosCollection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -58,7 +58,7 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
             return $this;
         }
 
-        Livewire::component('livewire-hosted-videos-collection', LivewireHostedVideosCollection::class);
+        Livewire::component('hosted-videos-collection', HostedVideosCollection::class);
         return $this;
     }
 

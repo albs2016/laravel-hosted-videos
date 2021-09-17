@@ -7,7 +7,7 @@ use Artificertech\LaravelHostedVideos\Sources\Source;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
-class LivewireHostedVideosCollection extends Component
+class HostedVideosCollection extends Component
 {
     public $hosted_videos;
     public $model;
@@ -29,7 +29,6 @@ class LivewireHostedVideosCollection extends Component
         $this->propertiesView = $propertiesView;
         $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
         $this->url = "";
-        // dd($this->hosted_videos);
     }
     public function render()
     {
@@ -62,9 +61,9 @@ class LivewireHostedVideosCollection extends Component
         $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
     }
 
-    public function updateHostedVideoCustomProperties($video, $customProperty, $value)
+    public function updateHostedVideoCustomProperties($videoId, $customProperty, $value)
     {
-        $updatedVideo = HostedVideo::find($video['id']);
+        $updatedVideo = HostedVideo::find($videoId);
         $customProperties = json_decode($updatedVideo->custom_properties);
         if (is_object($customProperties))
             $customProperties->$customProperty = $value;

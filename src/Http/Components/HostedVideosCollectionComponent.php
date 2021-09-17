@@ -39,6 +39,3 @@ class HostedVideosCollectionComponent extends Component
         return view('hosted-videos::components.hosted-videos-collection');
     }
 }
-
-
-//Will Nedd List View, and item view atleast.

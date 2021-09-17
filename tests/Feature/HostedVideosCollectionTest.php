@@ -3,14 +3,14 @@
 namespace Artificertech\LaravelHostedVideos\Tests\Feature;
 
 
-use Artificertech\LaravelHostedVideos\Http\Livewire\LivewireHostedVideosCollection;
+use Artificertech\LaravelHostedVideos\Http\Livewire\HostedVideosCollection;
 use Artificertech\LaravelHostedVideos\Models\HostedVideo;
 use Artificertech\LaravelHostedVideos\Tests\Stubs\Product;
 use Artificertech\LaravelHostedVideos\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
-
+use Illuminate\Support\HtmlString;
 
 class HostedVideosCollectionTest extends TestCase
 {
@@ -23,7 +23,7 @@ class HostedVideosCollectionTest extends TestCase
     {
         $product = Product::create(['name' => 'my cool product']);
         $product->hostedVideos()->save(new HostedVideo(['video_id' => 'dLj4BG_Di1w', 'source' => 'youtube']));
-        $livewireTest = Livewire::test(LivewireHostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
+        $livewireTest = Livewire::test(HostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
         $livewireTest->assertStatus(200);
     }
 
@@ -31,7 +31,7 @@ class HostedVideosCollectionTest extends TestCase
     {
         $product = Product::create(['name' => 'my cool product']);
         $product->hostedVideos()->save(new HostedVideo(['video_id' => 'dLj4BG_Di1w', 'source' => 'youtube']));
-        $livewireTest = Livewire::test(LivewireHostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
+        $livewireTest = Livewire::test(HostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
         $livewireTest->call('addHostedVideo')->assertHasErrors('url');
         $livewireTest->set('url', 'notvalid.com')->call('addHostedVideo')->assertHasErrors('url');
         $livewireTest->set('url', 'https://www.youtube.com/watch?v=kC86TtdeuDc')->call('addHostedVideo')->assertHasNoErrors('url');
@@ -43,7 +43,7 @@ class HostedVideosCollectionTest extends TestCase
     {
         $product = Product::create(['name' => 'my cool product']);
         $product->hostedVideos()->save(new HostedVideo(['video_id' => 'dLj4BG_Di1w', 'source' => 'youtube']));
-        $livewireTest = Livewire::test(LivewireHostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
+        $livewireTest = Livewire::test(HostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
         $video['id'] = 2;
         $livewireTest->call('deleteHostedVideo', $video);
         $livewireTest->assertCount('hosted_videos', 0);
@@ -58,7 +58,7 @@ class HostedVideosCollectionTest extends TestCase
     {
         $product = Product::create(['name' => 'my cool product']);
         $product->hostedVideos()->save(new HostedVideo(['video_id' => 'dLj4BG_Di1w', 'source' => 'youtube']));
-        $livewireTest = Livewire::test(LivewireHostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
+        $livewireTest = Livewire::test(HostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft"]);
         $livewireTest->call('addHostedVideo');
         $livewireTest->set('url', 'https://www.youtube.com/watch?v=11111111')->call('addHostedVideo');
         $livewireTest->set('url', 'https://www.youtube.com/watch?v=22222222')->call('addHostedVideo');
@@ -68,18 +68,17 @@ class HostedVideosCollectionTest extends TestCase
         $this->assertEquals('4', $livewireTest->hosted_videos->first()->id);
     }
 
-    public function test_updateHostedVideoCustomProperties_video()
+    public function test_updateHostedVideoCustomProperties()
     {
         $product = Product::create(['name' => 'my cool product']);
         $product->hostedVideos()->save(new HostedVideo(['video_id' => 'dLj4BG_Di1w', 'source' => 'youtube']));
-        $livewireTest = Livewire::test(LivewireHostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft", 'customProperties' => ['testing' => true]]);
+        $livewireTest = Livewire::test(HostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft", 'customProperties' => ['testing' => true]]);
         $livewireTest->call('addHostedVideo');
         $livewireTest->set('url', 'https://www.youtube.com/watch?v=11111111')->call('addHostedVideo');
         $livewireTest->set('url', 'https://www.youtube.com/watch?v=22222222')->call('addHostedVideo');
         $livewireTest->set('url', 'https://vimeo.com/33333333')->call('addHostedVideo');
         $this->assertEquals(true, json_decode($livewireTest->hosted_videos->first()->custom_properties)->testing);
-        $video['id'] = $livewireTest->hosted_videos->first()->id;
-        $livewireTest->call('updateHostedVideoCustomProperties', $video, 'newProperty', 'set');
+        $livewireTest->call('updateHostedVideoCustomProperties', $livewireTest->hosted_videos->first()->id, 'newProperty', 'set');
         $livewireTest->hosted_videos->first()->refresh();
         $this->assertEquals('set', json_decode($livewireTest->hosted_videos->first()->custom_properties)->newProperty);
     }
@@ -104,5 +103,21 @@ class HostedVideosCollectionTest extends TestCase
         );
 
         $view->assertSee('Please enter the URL of the video here.');
+    }
+
+    public function test_livewireCustomPropertyAttributes()
+    {
+        $product = Product::create(['name' => 'my cool product']);
+        $product->hostedVideos()->save(new HostedVideo(['video_id' => 'dLj4BG_Di1w', 'source' => 'youtube']));
+        $livewireTest = Livewire::test(HostedVideosCollection::class, ['model' => $product, 'listView' => 'hosted-videos::livewire.list', 'inputView' => 'input', 'itemView' => 'item', 'collection' => "draft", 'customProperties' => ['testing' => true]]);
+        $livewireTest->call('addHostedVideo');
+        $livewireTest->set('url', 'https://www.youtube.com/watch?v=11111111')->call('addHostedVideo');
+        $this->assertEquals(new HtmlString(implode(PHP_EOL, [
+            'x-data=""',
+            "name='video-2-test'",
+            "value=''",
+            "x-on:keyup.debounce=\"\$wire.updateHostedVideoCustomProperties(2,'test',document.getElementsByName('video-2-test')[0].value)\"",
+
+        ])), $livewireTest->hosted_videos->first()->livewireCustomPropertyAttributes('test'));
     }
 }

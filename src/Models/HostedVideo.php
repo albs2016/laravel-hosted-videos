@@ -6,6 +6,7 @@ use Artificertech\LaravelHostedVideos\Sources\Source;
 use Artificertech\LaravelRenderable\Renderable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
 class HostedVideo extends Model implements Renderable
 {
@@ -45,5 +46,20 @@ class HostedVideo extends Model implements Renderable
     public function renderableName(): string
     {
         return 'video';
+    }
+
+    public function livewireCustomPropertyAttributes(string $customProperty): HtmlString
+    {
+        if (!empty(json_decode($this->custom_properties)->$customProperty))
+            $value = json_decode($this->custom_properties)->$customProperty;
+        else
+            $value = '';
+        return new HtmlString(implode(PHP_EOL, [
+            'x-data=""',
+            "name='video-$this->id-$customProperty'",
+            "value='$value'",
+            "x-on:keyup.debounce=\"\$wire.updateHostedVideoCustomProperties($this->id,'$customProperty',document.getElementsByName('video-$this->id-$customProperty')[0].value)\"",
+
+        ]));
     }
 }
