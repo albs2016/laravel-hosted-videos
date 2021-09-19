@@ -1,5 +1,5 @@
-@props(['video', 'url', 'propertiesView', 'index'])
-<li wire:sortable.item="{{ $video->id }}" class="relative w-full	 border-b-2 ">
+@props(['video', 'url', 'propertiesView' => '', 'index', 'property'])
+<li wire:sortable.item="{{ $video->id }}" class="relative border-b-2 ">
     @if ($index == 0)
         <div class="border-t-2">
         </div>
@@ -32,7 +32,7 @@
             @endif
             <div dusk="remove"
                 class="absolute top-0 m-3 right-0 h-5 w-5 flex items-center justify-center opacity-20 hover:opacity-50"
-                wire:click="deleteHostedVideo({{ $video }})">
+                wire:click="deleteHostedVideo({{ $video }},'{{ $property }}')">
                 <svg id="icon-remove" viewBox="0 0 64 64">
                     <path class="stroke-current stroke-1 text-gray-500" d="M43.4,40.6l-8.5-8.5l8.5-8.5c0.8-0.8,0.8-2.1,0-2.8s-2.1-0.8-2.8,0l-8.5,8.5l-8.5-8.5c-0.8-0.8-2.1-0.8-2.8,0
                     c-0.8,0.8-0.8,2.1,0,2.8l8.5,8.5l-8.5,8.5c-0.8,0.8-0.8,2.1,0,2.8c0.8,0.8,2.1,0.8,2.8,0l8.5-8.5l8.5,8.5c0.8,0.8,2.1,0.8,2.8,0
@@ -43,4 +43,3 @@
         </div>
     </div>
 </li>
-
