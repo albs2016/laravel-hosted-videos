@@ -21,6 +21,7 @@ class HostedVideo extends Model implements Renderable
      */
     protected $casts = [
         'source' => Source::class,
+        'custom_properties' => 'array'
     ];
 
     public function videoable()
@@ -49,59 +50,64 @@ class HostedVideo extends Model implements Renderable
         return 'video';
     }
 
-    public function livewireCustomPropertyAttributes(string $customProperty, $property): HtmlString
+    public function livewireCustomPropertyAttributes(string $customProperty, $property, $index): HtmlString
     {
-        if (!empty(json_decode($this->custom_properties)->$customProperty))
-            $value = json_decode($this->custom_properties)->$customProperty;
-        else
-            $value = '';
+
+        $value = $this->custom_properties[$customProperty] ?? '';
         return new HtmlString(implode(PHP_EOL, [
             'x-data=""',
-            "name='video-$this->order-$customProperty'",
+            "name='$property.$index.custom_properties.$customProperty'",
             "value='$value'",
-            "x-on:keyup.debounce=\"\$wire.updateHostedVideoCustomProperties($this->order,'$customProperty',document.getElementsByName('video-$this->order-$customProperty')[0].value,'$property')\"",
+            "x-on:keyup.debounce=\"\$wire.updateHostedVideoCustomProperties($this->order,'$customProperty',document.getElementsByName('$property.$index.custom_properties.$customProperty')[0].value,'$property')\"",
 
         ]));
     }
 
+    public function customPropertyErrorName(string $customProperty, $property, $index): string
+    { //'newArray.{{ $index }}.custom_properties.caption'
+        return "$property.$index.custom_properties.$customProperty";
+    }
+
+
     public function setCustomProperty(string $name, string $value)
     {
-        $customProperties = json_decode($this->custom_properties);
-        if (is_object($customProperties))
-            $customProperties->$name = $value;
-        else
-            $customProperties[$name] = $value;
-        $this->custom_properties = json_encode($customProperties);
+        $customProperties = $this->custom_properties;
+        // if (is_object($customProperties))
+        //     $customProperties->$name = $value;
+        // else
+        $customProperties[$name] = $value;
+        $this->custom_properties =  $customProperties;
+        // $this->custom_properties[$name] = json_encode($customProperties);
         return $this;
     }
 
     public function forgetCustomProperty(string $name)
     {
-        $customProperties = json_decode($this->custom_properties);
-        if (is_object($customProperties))
-            unset($customProperties->$name);
-        else
-            unset($customProperties[$name]);
-        $this->custom_properties = json_encode($customProperties);
+        $customProperties = $this->custom_properties;
+        // if (is_object($customProperties))
+        //     unset($customProperties->$name);
+        // else
+        unset($customProperties[$name]);
+        $this->custom_properties = $customProperties;
         return $this;
     }
 
     public function hasCustomProperty(string $name)
     {
-        $customProperties = json_decode($this->custom_properties);
-        if (is_object($customProperties))
-            return (property_exists($customProperties, $name));
+        $customProperties = $this->custom_properties;
+        // if (is_object($customProperties))
+        return (array_key_exists($name, $customProperties));
     }
 
     public function getCustomProperty(string $name)
     {
-        $customProperties = json_decode($this->custom_properties);
-        if (is_object($customProperties))
-            return $customProperties->$name ?? null;
+        // $customProperties = json_decode($this->custom_properties);
+        // if (is_object($customProperties))
+        return $this->custom_properties[$name] ?? null;
     }
 
     public function getCustomProperties()
     {
-        return json_decode($this->custom_properties);
+        return $this->custom_properties;
     }
 }

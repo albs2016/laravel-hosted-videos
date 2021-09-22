@@ -60,16 +60,12 @@ class PendingHostedVideoRequestHandler
             $index = 1;
         foreach ($hostedVideosRequestItems as $video) {
 
-            $customProperties = json_decode($video->custom_properties);
+            $customProperties = $video->custom_properties;
             if (!is_null($this->processCustomProperties)) {
                 foreach ($this->processCustomProperties as $key => $value) {
-                    if (is_object($customProperties))
-                        $customProperties->$key = $value;
-                    else
-                        $customProperties[$key] = $value;
+                    $customProperties[$key] = $value;
                 }
             }
-            $customProperties = json_encode($customProperties);
             $this->model->hostedVideos()->save(HostedVideo::make([
                 'video_id' => $video->video_id,
                 'source' => $video->source ?? 'youtube', //need to change after the source issue is fixed

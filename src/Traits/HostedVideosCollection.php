@@ -70,13 +70,13 @@ trait HostedVideosCollection
 
     public function updateHostedVideoCustomProperties($order, $customProperty, $value, $property)
     {
-
-        $customProperties = json_decode($this->$property->firstWhere('order', $order)->custom_properties);
-        if (is_object($customProperties))
-            $customProperties->$customProperty = $value;
-        else
-            $customProperties[$customProperty] = $value; //Only used if there are no current custom Properties
-        $this->$property->firstWhere('order', $order)->custom_properties = json_encode($customProperties);
+        Log::debug("message");
+        $customProperties = $this->$property->firstWhere('order', $order)->custom_properties;
+        // if (is_object($customProperties))
+        $customProperties[$customProperty] = $value;
+        // else
+        //     $customProperties[$customProperty] = $value; //Only used if there are no current custom Properties
+        $this->$property->firstWhere('order', $order)->custom_properties = $customProperties;
     }
 
 

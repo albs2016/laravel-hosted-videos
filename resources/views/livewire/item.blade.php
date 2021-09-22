@@ -31,7 +31,8 @@
             </div>
             @if (!empty($propertiesView))
                 <div class=" flex items-center w-full">
-                    <x-dynamic-component :component="$propertiesView" :video='$video' :property='$property' />
+                    <x-dynamic-component :component="$propertiesView" :video='$video' :property='$property'
+                        :index='$index' />
                 </div>
             @endif
             <div dusk="remove"
