@@ -50,6 +50,8 @@ class HostedVideo extends Model implements Renderable
         return 'video';
     }
 
+
+    //Functions to Interact with CustomProperties
     public function livewireCustomPropertyAttributes(string $customProperty, $property, $index): HtmlString
     {
 

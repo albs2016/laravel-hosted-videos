@@ -77,6 +77,6 @@ class PendingHostedVideoRequestHandler
         }
         $this->model->refresh();
         return $this->model->hostedVideos->where('collection_name', $collectionName)->sortBy('order'); //if no collection is specfied it should filter by no collection specfied.
-
+        //Returns a copy of the collection sorted by the collection name, that the user can overwrite their current collection with. Useful to get rid of a possible arraykey[0] error after saving.
     }
 }

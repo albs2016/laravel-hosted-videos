@@ -21,45 +21,15 @@ trait HostedVideosCollection
                 HostedVideo::make([
                     'video_id' => $videoId,
                     'source' => $source,
-                    // 'custom_properties' => json_encode((object) $this->customProperties),
-                    'collection_name' => $this->collection,
+                    'collection_name' => $this->collection ?? "default",
                     'order' => !empty($this->$property->last()->order) ? $this->$property->last()->order + 1 : 1
-                ]) //->setConnection($this->$property->first()->getConnectionName() ?? 'sqlite')
+                ]) //->setConnection($this->$property->first()->getConnectionName())
+                // There is an error that the setConnection would solve while adding a video. The error that source is cuasing is happening before it so I just left this code commented out
             );
         } else {
             $this->addError('url', 'Please enter a valid URL.');
         }
-        // dd($this->$property);
     }
-
-
-
-    // public function addHostedVideo($url, $property)
-    // {
-    //     if (!empty($url) && Source::parseURL($url)) {
-    //         [$source, $videoId] = Source::parseURL($url);
-    //         $newVideo = new HostedVideo(
-    //             [
-    //                 'video_id' => $videoId,
-    //                 'source' => $source,
-    //                 'custom_properties' => json_encode((object) $this->customProperties),
-    //                 'collection_name' => $this->collection,
-    //                 'order' => !empty($this->$property->last()->order) ? $this->$property->last()->order + 1 : 1
-    //             ]
-    //         );
-    //         // $newVideo->setConnection($this->$property->first()->getConnectionName());
-    //         $this->model->hostedVideos()->save($newVideo);
-    //         $this->model->refresh();
-    //         $this->$property = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
-    //         $this->resetErrorBag();
-    //         // dd($this->$property);
-    //     } else {
-    //         $this->addError('url', 'Please enter a valid URL.');
-    //     }
-    // }
-
-
-
 
     public function deleteHostedVideo($video, $property)
     {
@@ -70,16 +40,10 @@ trait HostedVideosCollection
 
     public function updateHostedVideoCustomProperties($order, $customProperty, $value, $property)
     {
-        Log::debug("message");
         $customProperties = $this->$property->firstWhere('order', $order)->custom_properties;
-        // if (is_object($customProperties))
         $customProperties[$customProperty] = $value;
-        // else
-        //     $customProperties[$customProperty] = $value; //Only used if there are no current custom Properties
         $this->$property->firstWhere('order', $order)->custom_properties = $customProperties;
     }
-
-
 
     public function reorder($order)
     {

@@ -21,7 +21,6 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->registerBladeComponents();
-        $this->registerLivewireComponents();
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -49,16 +48,6 @@ class LaravelHostedVideosServiceProvider extends ServiceProvider
         Blade::component('hosted-videos::livewire.input', 'input');
         Blade::component('hosted-videos::livewire.custom_properties_input', 'custom_properties_input');
 
-        return $this;
-    }
-
-    public function registerLivewireComponents(): self
-    {
-        if (!class_exists(Livewire::class)) {
-            return $this;
-        }
-
-        Livewire::component('hosted-videos-collection', HostedVideosCollection::class);
         return $this;
     }
 
