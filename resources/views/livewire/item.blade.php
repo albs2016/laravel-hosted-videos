@@ -1,5 +1,6 @@
 @props(['video', 'url', 'propertiesView' => '', 'index', 'property'])
-<li wire:sortable.item="{{ $video->id }}" class="relative border-b-2 ">
+
+<div>
     @if ($index == 0)
         <div class="border-t-2">
         </div>
@@ -8,9 +9,12 @@
         <div wire:sortable.handle
             class="border-box border-l border-r  bg-gray-100 bg-opacity-70 self-stretch flex-none flex flex-col items-center justify-center cursor-pointer hover:bg-gray-200">
             <svg class="h-6 w-6 mx-1.5 my-auto my-auto opacity-50 " viewBox="0 0 64 64">
-                <path d="M46,30H18c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2C48,30.9,47.1,30,46,30z"></path>
-                <path d="M46,42H18c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2C48,42.9,47.1,42,46,42z"></path>
-                <path d="M18,22h28c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2H18c-1.1,0-2,0.9-2,2C16,21.1,16.9,22,18,22z"></path>
+                <path d="M46,30H18c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2C48,30.9,47.1,30,46,30z">
+                </path>
+                <path d="M46,42H18c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2C48,42.9,47.1,42,46,42z">
+                </path>
+                <path d="M18,22h28c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2H18c-1.1,0-2,0.9-2,2C16,21.1,16.9,22,18,22z">
+                </path>
             </svg>
         </div>
         <div class="w-full flex m-4">
@@ -27,7 +31,7 @@
             </div>
             @if (!empty($propertiesView))
                 <div class=" flex items-center w-full">
-                    <x-dynamic-component :component="$propertiesView" :video='$video' />
+                    <x-dynamic-component :component="$propertiesView" :video='$video' :property='$property' />
                 </div>
             @endif
             <div dusk="remove"
@@ -42,4 +46,4 @@
 
         </div>
     </div>
-</li>
+</div>

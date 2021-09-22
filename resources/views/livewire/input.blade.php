@@ -1,4 +1,4 @@
-{{-- @props(['property']) --}}
+@props(['property'])
 <div class="mb-2 w-full items-center">
     <div class="w-full flex flex-row items-stretch h-8" x-data="{url: ''}">
         <input class="w-full border-2 " x-model="url">
@@ -15,6 +15,11 @@
             {{ $message }}
         </div>
     @enderror
+
+    <button
+        class="w-32 border-2 border-opacity-100 border-gray-300 transition-colors duration-300 bg-transparent bg-opacity-80 bg-gray-100 hover:bg-blue-300 mx-0.5 px-0.5 rounded-lg "
+        wire:click.prevent="dumpArray('{{ $property }}')">{{-- ,{{ $property }})"> --}}
+        {{ __('dumpArray') }} </button>
 </div>
 {{-- <div class="mb-2 w-full items-center">
     <div class="w-full flex flex-row items-stretch h-8">

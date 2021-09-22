@@ -15,107 +15,88 @@ trait HostedVideosCollection
 
     public function addHostedVideo($url, $property)
     {
-        // Log::debug($property);
         if (!empty($url) && Source::parseURL($url)) {
             [$source, $videoId] = Source::parseURL($url);
-            $newVideo = new HostedVideo(['video_id' => $videoId, 'source' => $source,  'custom_properties' => json_encode((object) $this->customProperties)]);
-            $newVideo->collection_name = $this->collection;
-            $newVideo->custom_properties =  json_encode((object) $this->customProperties);
-            $newVideo->order = !empty($this->newArray->last()->order) ? $this->newArray->last()->order + 1 : 1;
-            $this->model->hostedVideos()->save($newVideo);
-            $this->model->refresh();
-            $this->$property = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
-            $url = "";
-            $this->resetErrorBag();
+            $this->$property->push(
+                HostedVideo::make([
+                    'video_id' => $videoId,
+                    'source' => $source,
+                    // 'custom_properties' => json_encode((object) $this->customProperties),
+                    'collection_name' => $this->collection,
+                    'order' => !empty($this->$property->last()->order) ? $this->$property->last()->order + 1 : 1
+                ]) //->setConnection($this->$property->first()->getConnectionName() ?? 'sqlite')
+            );
         } else {
             $this->addError('url', 'Please enter a valid URL.');
         }
+        // dd($this->$property);
     }
 
-    // public function addHostedVideo($url)
+
+
+    // public function addHostedVideo($url, $property)
     // {
     //     if (!empty($url) && Source::parseURL($url)) {
     //         [$source, $videoId] = Source::parseURL($url);
-    //         $newVideo = new HostedVideo(['video_id' => $videoId, 'source' => $source,  'custom_properties' => json_encode((object) $this->customProperties)]);
-    //         $newVideo->collection_name = $this->collection;
-    //         $newVideo->custom_properties =  json_encode((object) $this->customProperties);
-    //         $newVideo->order = !empty($this->hosted_videos->last()->order) ? $this->hosted_videos->last()->order + 1 : 1;
+    //         $newVideo = new HostedVideo(
+    //             [
+    //                 'video_id' => $videoId,
+    //                 'source' => $source,
+    //                 'custom_properties' => json_encode((object) $this->customProperties),
+    //                 'collection_name' => $this->collection,
+    //                 'order' => !empty($this->$property->last()->order) ? $this->$property->last()->order + 1 : 1
+    //             ]
+    //         );
+    //         // $newVideo->setConnection($this->$property->first()->getConnectionName());
     //         $this->model->hostedVideos()->save($newVideo);
     //         $this->model->refresh();
-    //         $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
-    //         $url = "";
+    //         $this->$property = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
     //         $this->resetErrorBag();
+    //         // dd($this->$property);
     //     } else {
     //         $this->addError('url', 'Please enter a valid URL.');
     //     }
     // }
 
+
+
+
     public function deleteHostedVideo($video, $property)
     {
-        if (!empty(HostedVideo::find($video['id'])))
-            HostedVideo::find($video['id'])->delete();
-        $this->model->refresh();
-        $this->$property = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
+        if (!empty($this->$property->firstWhere('order', $video['order']))) {
+            $this->$property = $this->$property->keyBy('order')->forget($video['order']);
+        }
     }
 
-    public function updateHostedVideoCustomProperties($videoId, $customProperty, $value)
+    public function updateHostedVideoCustomProperties($order, $customProperty, $value, $property)
     {
-        $updatedVideo = HostedVideo::find($videoId);
-        $customProperties = json_decode($updatedVideo->custom_properties);
+
+        $customProperties = json_decode($this->$property->firstWhere('order', $order)->custom_properties);
         if (is_object($customProperties))
             $customProperties->$customProperty = $value;
         else
-            $customProperties[$customProperty] = $value;
-        $updatedVideo->custom_properties = json_encode($customProperties);
-        $updatedVideo->save();
+            $customProperties[$customProperty] = $value; //Only used if there are no current custom Properties
+        $this->$property->firstWhere('order', $order)->custom_properties = json_encode($customProperties);
     }
 
-    // public function reorder($order)
-    // {
-    //     //Find video in hostedVideos array, change order, resort
 
 
-    //     $i =  count($order);
-    //     foreach ($order as $video) {
-    //         $updatedVideo = $this->hosted_videos->where('id', $video['value']);
-
-    //         // $updatedVideo = HostedVideo::find($video['value']);
-    //         $updatedVideo->order =  $video['order'];
-
-    //         // $updatedVideo->save();
-    //         // $this->model->refresh();
-    //         $i = $i - 1;
-    //     }
-    //     $this->model->refresh();
-    //     $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
-    // }
-
-    public function reorder($order, $property = null)
+    public function reorder($order)
     {
-        // Log::debug($property);
-        // Log::debug($order);
-        //Find video in hostedVideos array, change order, resort
-
-
-        // $i =  count($order);
-        // foreach ($order as $video) {
-        //     // $updatedVideo = $this->hosted_videos->where('id', $video['value']);
-
-        //     $updatedVideo = HostedVideo::find($video['value']);
-        //     $updatedVideo->order =  $video['order'];
-
-        //     $updatedVideo->save();
-        //     $this->model->refresh();
-        //     $i = $i - 1;
-        // }
-        // $this->model->refresh();
-        // $this->hosted_videos = $this->model->hostedVideos->where('collection_name', $this->collection)->sortBy('order');
+        foreach ($order as $video) {
+            [$property, $index] = explode("-",  $video['value']);
+            $this->$property[$index]->order = $video['order'];
+        }
+        $this->$property = $this->$property->sortBy('order');
     }
-
-
 
     public function getVideoURL($video)
     {
         return Source::getVideoURL($video->source, $video->video_id);
+    }
+
+    public function dumpArray($property)
+    {
+        dd($this->$property);
     }
 }
